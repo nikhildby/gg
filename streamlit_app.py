@@ -27,7 +27,8 @@ if uploaded_file is not None:
     # Predict
     predictions = model.predict(img_array)
     predicted_class = class_names[np.argmax(predictions)]
-    confidence = np.max(predictions)  # No need for tf.nn.softmax
+    confidence = np.max(tf.nn.softmax(predictions))
+  # No need for tf.nn.softmax
 
     # Display prediction
     st.markdown(f"### Prediction: **{predicted_class}**")
