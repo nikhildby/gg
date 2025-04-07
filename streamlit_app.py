@@ -22,12 +22,14 @@ if uploaded_file is not None:
     # Preprocess the image
     image = image.resize((32, 32))
     img_array = np.array(image) / 255.0
-    img_array = np.expand_dims(img_array, axis=0)
+    img_array = np.expand_dims(img_array, axis=0)  # Shape: (1, 32, 32, 3)
 
     # Predict
     predictions = model.predict(img_array)
     predicted_class = class_names[np.argmax(predictions)]
-    confidence = np.max(tf.nn.softmax(predictions))
+    confidence = np.max(predictions)  # No need for tf.nn.softmax
 
+    # Display prediction
     st.markdown(f"### Prediction: **{predicted_class}**")
     st.markdown(f"**Confidence:** {confidence:.2%}")
+
